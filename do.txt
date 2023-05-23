@@ -1,0 +1,3 @@
+npx create-next-app@latest messanger-clone-next --tailwind --typescript
+
+npm i react-icons react-hook-form clsx @tailwindcss/forms
