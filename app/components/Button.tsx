@@ -8,7 +8,7 @@ interface ButtonProps {
   secondary?: boolean;
   danger?: boolean;
   disabled?: boolean;
-}
+}; // this is the type of the props that we will pass to the Button component
 
 const Button: React.FC<ButtonProps> = ({
   type = "button",

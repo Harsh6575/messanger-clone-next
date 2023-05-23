@@ -8,16 +8,16 @@ import AuthSocialButton from "./AuthSocialButton";
 import { BsGithub } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
 
-type Variant = "LOGIN" | "REGISTER";
+type Variant = "LOGIN" | "REGISTER"; // making a type for the variant state to make it easier to read and use in the component below 
 
 const AuthForm = () => {
-  const [variant, setVariant] = useState<Variant>("LOGIN");
+  const [variant, setVariant] = useState<Variant>("LOGIN"); // setting the variant state to LOGIN as the default state
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // setting the isLoading state to false as the default state
 
   const toggleVariant = useCallback(() => {
     setVariant(variant === "LOGIN" ? "REGISTER" : "LOGIN");
-  }, [variant]);
+  }, [variant]); // using useCallback to memoize the toggleVariant function to prevent unnecessary re-renders of the component when the variant state changes 
 
   const {
     register,
@@ -29,24 +29,26 @@ const AuthForm = () => {
       email: "",
       password: "",
     },
-  });
+  }); // using react-hook-form to handle the form state and validation 
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    setIsLoading(true);
+
+    setIsLoading(true); // setting the isLoading state to true when the form is submitted 
+
     if (variant === "REGISTER") {
       // axios register
-    }
+    }; // if the variant state is REGISTER, then the user is trying to register a new account, so we will make a request to the backend to register the user
 
     if (variant === "LOGIN") {
       // nextauth signin
-    }
-  };
+    }; // if the variant state is LOGIN, then the user is trying to login to their account, so we will make a request to the backend to login the user
+  }; // using the onSubmit function to handle the form submission 
 
   const socialAction = (action: string) => {
-    setIsLoading(true);
+    setIsLoading(true); // setting the isLoading state to true when the social button is clicked
 
     // nextauth socail signin
-  };
+  }; // using the socialAction function to handle the social signin 
 
   return (
     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -56,11 +58,12 @@ const AuthForm = () => {
             <Input
               disabled={isLoading}
               register={register}
-              errors={errors}
+              errors={errors} 
               // required
               id="name"
               label="Name"
             />
+            // if the variant state is REGISTER, then we will render the name input field 
           )}
           <Input
             disabled={isLoading}
@@ -84,6 +87,9 @@ const AuthForm = () => {
             <Button disabled={isLoading} fullWidth type="submit">
               {variant === "LOGIN" ? "Sign in" : "Register"}
             </Button>
+            {/* 
+                // if the variant state is LOGIN, then we will render the login button or else we will render the register button 
+             */}
           </div>
         </form>
         <div className="mt-6">
@@ -98,7 +104,7 @@ const AuthForm = () => {
             </div>
           </div>
           <div className="mt-6 flex gap-2">
-            <AuthSocialButton
+            <AuthSocialButton 
               icon={BsGithub}
               onClick={() => socialAction("github")}
             />
@@ -113,9 +119,16 @@ const AuthForm = () => {
             {variant === "LOGIN"
               ? "New to Messenger?"
               : "Already have an account?"}
+              {/* 
+                // if the variant state is LOGIN, then we will render the "New to Messenger?" text or else we will render the "Already have an account?" text 
+
+              */}
           </div>
           <div onClick={toggleVariant} className="underline cursor-pointer">
             {variant === "LOGIN" ? "Create an account" : "Login"}
+            {/*
+                // if the variant state is LOGIN, then we will render the "Create an account" text or else we will render the "Login" text
+            */}
           </div>
         </div>
       </div>

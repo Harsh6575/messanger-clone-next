@@ -3,7 +3,7 @@ import { IconType } from "react-icons";
 interface AuthSocialButtonProps {
   icon: IconType;
   onClick: () => void;
-}
+}; // this is the type of the props that we will pass to the AuthSocialButton component
 
 const AuthSocialButton: React.FC<AuthSocialButtonProps> = ({
   icon: Icon,

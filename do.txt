@@ -2,3 +2,8 @@ npx create-next-app@latest messanger-clone-next --tailwind --typescript
 
 npm i react-icons react-hook-form clsx @tailwindcss/forms
 npm i -D prisma
+npx prisma init
+npx prisma db push
+
+npm i next-auth@latest @prisma/client @next-auth/prisma-adapter bcrypt
+npm i -D @types/bcrypt

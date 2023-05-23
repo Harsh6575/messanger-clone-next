@@ -11,7 +11,7 @@ interface InputProps {
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors;
   disabled?: boolean;
-}
+}; // this is the type of the props that we will pass to the Input component 
 
 const Input: React.FC<InputProps> = ({
   label,
