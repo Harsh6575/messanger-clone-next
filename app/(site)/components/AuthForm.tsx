@@ -7,6 +7,7 @@ import AuthSocialButton from "./AuthSocialButton";
 
 import { BsGithub } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
+import axios from "axios";
 
 type Variant = "LOGIN" | "REGISTER"; // making a type for the variant state to make it easier to read and use in the component below 
 
@@ -37,6 +38,8 @@ const AuthForm = () => {
 
     if (variant === "REGISTER") {
       // axios register
+      axios.post("/api/register", data);
+      
     }; // if the variant state is REGISTER, then the user is trying to register a new account, so we will make a request to the backend to register the user
 
     if (variant === "LOGIN") {

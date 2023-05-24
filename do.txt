@@ -5,5 +5,5 @@ npm i -D prisma
 npx prisma init
 npx prisma db push
 
-npm i next-auth@latest @prisma/client @next-auth/prisma-adapter bcrypt
+npm i next-auth@latest @prisma/client @next-auth/prisma-adapter bcrypt axios
 npm i -D @types/bcrypt
