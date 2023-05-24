@@ -1,13 +1,15 @@
 "use client";
-import Button from "@/app/components/Button";
-import Input from "@/app/components/inputs/Input";
 import React, { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import AuthSocialButton from "./AuthSocialButton";
-
 import { BsGithub } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
+import { toast } from "react-hot-toast";
+import { signIn } from "next-auth/react";
+
+import Button from "@/app/components/Button";
+import Input from "@/app/components/inputs/Input";
+import AuthSocialButton from "./AuthSocialButton";
 
 type Variant = "LOGIN" | "REGISTER"; // making a type for the variant state to make it easier to read and use in the component below 
 
@@ -38,12 +40,32 @@ const AuthForm = () => {
 
     if (variant === "REGISTER") {
       // axios register
-      axios.post("/api/register", data);
+      axios.post("/api/register", data)
+      .catch(()=> {toast.error("Something went wrong")})
+      .finally(()=> {
+        setIsLoading(false);
+      });
       
     }; // if the variant state is REGISTER, then the user is trying to register a new account, so we will make a request to the backend to register the user
 
     if (variant === "LOGIN") {
       // nextauth signin
+      signIn('credentials',{
+        ...data,
+        redirect: false,
+      })
+      .then((callback)=>{
+        if(callback?.error){
+          toast.error('Invalid credentials');
+        }
+
+        if(callback?.ok && !callback?.error){
+          toast.success('Logged in successfully');
+        }
+      })
+      .finally(()=> {
+        setIsLoading(false);
+      });
     }; // if the variant state is LOGIN, then the user is trying to login to their account, so we will make a request to the backend to login the user
   }; // using the onSubmit function to handle the form submission 
 
@@ -51,6 +73,22 @@ const AuthForm = () => {
     setIsLoading(true); // setting the isLoading state to true when the social button is clicked
 
     // nextauth socail signin
+
+    signIn(action,{
+      redirect: false,
+    })
+    .then((callback)=>{
+      if(callback?.error){
+        toast.error('Something went wrong');
+      }
+
+      if(callback?.ok && !callback?.error){
+        toast.success('Logged in successfully');
+      }
+    })
+    .finally(()=> {
+      setIsLoading(false);
+    });
   }; // using the socialAction function to handle the social signin 
 
   return (
