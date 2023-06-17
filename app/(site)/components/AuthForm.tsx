@@ -11,14 +11,13 @@ import Button from "@/app/components/Button";
 import Input from "@/app/components/inputs/Input";
 import AuthSocialButton from "./AuthSocialButton";
 import { useRouter } from "next/navigation";
-import { sign } from "crypto";
 
 type Variant = "LOGIN" | "REGISTER"; // making a type for the variant state to make it easier to read and use in the component below
 
 const AuthForm = () => {
-  const session = useSession();
+  const session = useSession(); // using the useSession hook from next-auth to get the session state and session data from the backend to check if the user is authenticated or not and to get the user data if the user is authenticated or not to display the user data in the component below 
 
-  const router = useRouter();
+  const router = useRouter(); // using the useRouter hook from next/router to get the router object to redirect the user to another page after the user is authenticated 
 
   const [variant, setVariant] = useState<Variant>("LOGIN"); // setting the variant state to LOGIN as the default state
 
@@ -26,9 +25,8 @@ const AuthForm = () => {
 
   useEffect(() => {
     if (session?.status === "authenticated") {
-      // toast.success('Logged in successfully');
-      // console.log('authenticated');
-      router.push("/users");
+      toast.success('Logged in successfully'); // showing a toast notification to the user if the user is authenticated successfully
+      router.push("/users"); // redirecting the user to the users page if the user is authenticated
     }
   }, [session?.status, router]); // using useEffect to check if the session state changes
 
@@ -54,14 +52,14 @@ const AuthForm = () => {
     if (variant === "REGISTER") {
       // axios register
       axios
-        .post("/api/register", data)
-        .then(()=> signIn("credentials", data))
+        .post("/api/register", data) // making a request to the backend to register the user
+        .then(()=> signIn("credentials", data)) // nextauth signin after the user is registered
         .catch(() => {
           toast.error("Something went wrong");
-        })
+        }) // showing a toast notification to the user if something went wrong
         .finally(() => {
           setIsLoading(false);
-        });
+        }); // setting the isLoading state to false after the request is finished
     } // if the variant state is REGISTER, then the user is trying to register a new account, so we will make a request to the backend to register the user
 
     if (variant === "LOGIN") {
@@ -69,20 +67,20 @@ const AuthForm = () => {
       signIn("credentials", {
         ...data,
         redirect: false,
-      })
+      }) // nextauth signin after the user is registered
         .then((callback) => {
           if (callback?.error) {
             toast.error("Invalid credentials");
-          }
+          }  // showing a toast notification to the user if the credentials are invalid
 
           if (callback?.ok && !callback?.error) {
             toast.success("Logged in successfully"); 
             router.push("/users");
-          }
-        })
+          } // showing a toast notification to the user if the user is authenticated successfully and redirecting the user to the users page
+        }) // showing a toast notification to the user if something went wrong
         .finally(() => {
           setIsLoading(false);
-        });
+        }); // setting the isLoading state to false after the request is finished
     } // if the variant state is LOGIN, then the user is trying to login to their account, so we will make a request to the backend to login the user
   }; // using the onSubmit function to handle the form submission
 
@@ -93,19 +91,19 @@ const AuthForm = () => {
 
     signIn(action, {
       redirect: false,
-    })
+    }) // nextauth signin after the user is registered
       .then((callback) => {
         if (callback?.error) {
           toast.error("Something went wrong");
-        }
+        } // showing a toast notification to the user if something went wrong if the callback error is true 
 
         if (callback?.ok && !callback?.error) {
           toast.success("Logged in successfully");
-        }
-      })
+        } // showing a toast notification to the user if the user is authenticated successfully and redirecting the user to the users page
+      }) // showing a toast notification to the user if something went wrong or if the user is authenticated successfully and redirecting the user to the users page
       .finally(() => {
         setIsLoading(false);
-      });
+      }); // setting the isLoading state to false after the request is finished
   }; // using the socialAction function to handle the social signin
 
   return (

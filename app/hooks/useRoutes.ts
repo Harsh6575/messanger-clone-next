@@ -6,8 +6,8 @@ import { signOut } from "next-auth/react";
 import useConversation from "./useConversation";
 
 const useRoutes = () => {
-  const pathname = usePathname();
-  const { conversationId } = useConversation();
+  const pathname = usePathname(); // Get the pathname of the url 
+  const { conversationId } = useConversation(); // Get the conversationId
 
   const routes = useMemo(() => [
     { 
@@ -28,9 +28,9 @@ const useRoutes = () => {
       href: '#',
       icon: HiArrowLeftOnRectangle, 
     }
-  ], [pathname, conversationId]);
+  ], [pathname, conversationId]); // Return the routes and the active route 
 
-  return routes;
+  return routes; // Return the routes
 };
 
 export default useRoutes;
