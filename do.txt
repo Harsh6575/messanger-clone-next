@@ -8,3 +8,5 @@ npx prisma db push
 npm i next-auth@latest @prisma/client @next-auth/prisma-adapter bcrypt axios react-hot-toast next-superjson-plugin date-fns
 npm i -D @types/bcrypt
 npm i next-cloudinary
+
+npm i @headlessui/react

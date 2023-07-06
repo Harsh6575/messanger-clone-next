@@ -9,6 +9,7 @@ import { Conversation, User } from "@prisma/client";
 import useOtherUser from "@/app/hooks/useOtherUser";
 
 import Avatar from "@/app/components/Avatar";
+import ProfileDrawer from "./ProfileDrawer";
 
 interface HeaderProps {
   conversation: Conversation & {
@@ -18,6 +19,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ conversation }) => {
   const otherUser = useOtherUser(conversation);
+
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const statusText = useMemo(() => {
@@ -30,6 +32,11 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
 
   return (
     <>
+    <ProfileDrawer 
+      data={conversation}
+      isOpen={drawerOpen}
+      onClose={() => setDrawerOpen(false)}
+    />
       <div className="bg-white w-full flex border-b-[1px] sm:px-4 py-3 px-4 lg:px-6 justify-between items-center shadow-sm">
         <div className="flex gap-3 items-center">
           <Link
