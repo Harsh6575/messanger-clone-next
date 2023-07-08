@@ -9,4 +9,4 @@ npm i next-auth@latest @prisma/client @next-auth/prisma-adapter bcrypt axios rea
 npm i -D @types/bcrypt
 npm i next-cloudinary
 
-npm i @headlessui/react
+npm i @headlessui/react react-select
