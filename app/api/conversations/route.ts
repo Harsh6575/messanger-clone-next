@@ -1,6 +1,7 @@
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import { NextResponse } from "next/server";
 import prisma from "@/app/libs/prismadb";
+import { pusherServer } from "@/app/libs/pusher";
 
 export async function POST(request: Request) {
   try {
@@ -36,6 +37,13 @@ export async function POST(request: Request) {
           users: true,
         }, // include users in response 
       }); // create new conversation with group data and current user id
+      
+      newConversation.users.map((user) => {
+        if (user.email) {
+          pusherServer.trigger(user.email, 'conversation:new', newConversation);
+        }
+      }); // trigger conversation:new event for all users in conversation
+
       return NextResponse.json(newConversation); // return new conversation
     }
 
@@ -79,6 +87,12 @@ export async function POST(request: Request) {
         users: true
       } // include users in response 
     });
+
+    newConversation.users.map((user) => {
+      if (user.email) {
+        pusherServer.trigger(user.email, 'conversation:new', newConversation);
+      }
+    }); // trigger conversation:new event for all users in conversation 
 
     return NextResponse.json(newConversation); // return new conversation
 

@@ -8,5 +8,6 @@ npx prisma db push
 npm i next-auth@latest @prisma/client @next-auth/prisma-adapter bcrypt axios react-hot-toast next-superjson-plugin date-fns
 npm i -D @types/bcrypt
 npm i next-cloudinary
+ npm i -D @types/lodash
 
-npm i @headlessui/react react-select react-spinners
+npm i @headlessui/react react-select react-spinners  pusher pusher-js lodash zustand

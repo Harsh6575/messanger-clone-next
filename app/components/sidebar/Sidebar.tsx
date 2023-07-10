@@ -9,7 +9,7 @@ export default async function Sidebar({
   children: React.ReactNode;
 }) {
 
-  const currentUser = await getCurrentUser();
+  const currentUser = await getCurrentUser(); // get current user from the database
 
   return (
     <div className="h-full">

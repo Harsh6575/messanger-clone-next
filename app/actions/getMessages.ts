@@ -15,11 +15,11 @@ const getMessages = async (
       orderBy: {
         createdAt: 'asc'
       }
-    });
+    }); // Get messages by conversation id (from prisma) (with sender and seen) (ordered by createdAt) 
 
-    return messages;
+    return messages; // Return messages (with sender and seen) (ordered by createdAt)
   } catch (error: any) {
-    return [];
+    return []; // Return empty array (no messages)
   }
 };
 
