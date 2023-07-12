@@ -5,7 +5,7 @@ const useConversation = () => {
     const params = useParams(); // Get the params of the url 
 
     const conversationId = useMemo(() => {
-        if(!params.conversationId) return ''; // If the conversationId is not found, return an empty string 
+        if(!params?.conversationId) return ''; // If the conversationId is not found, return an empty string 
 
         return params.conversationId as string; // Return the conversationId 
     }, [params?.conversationId]); // Get the conversationId from the params of the url
